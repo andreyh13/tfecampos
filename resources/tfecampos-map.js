@@ -306,6 +306,7 @@
         });
         $("#directions-panel-switch").click(function(){
             $("#directions-panel-wrapper").hide();
+            return false;
         });
     });
 })();

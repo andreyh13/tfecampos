@@ -1,6 +1,6 @@
 (function(){
     var DATA_SERVICE_URL = "https://script.google.com/macros/s/AKfycbyxqfsV0zdCKFRxgYYWPVO1PMshyhiuvTbvuKkkHjEGimPcdlpd/exec?jsonp=?";
-    var ICON_URL = "http://127.0.0.1:59183/resources/soccerfield.png";
+    var ICON_URL = "http://andreyh13.github.io/tfecampos/resources/soccerfield.png";
 
     // DEFAULT_ZOOM is the default zoom level for the map.
     // AUTO_ZOOM is the level used when we automatically zoom into a place when

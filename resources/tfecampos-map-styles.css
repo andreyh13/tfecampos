@@ -143,3 +143,7 @@ html, body, #map-canvas {
     padding: 0 0 0 32px;
     color: #D76200;
 }
+.ui-autocomplete {
+  height: 500px;
+  overflow-y: scroll;    
+}

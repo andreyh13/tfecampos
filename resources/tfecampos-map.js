@@ -30,6 +30,7 @@
         map = new google.maps.Map(document.getElementById("map-canvas"), {
             center: new google.maps.LatLng(28.2945288, -16.565290900000036),
             zoom: DEFAULT_ZOOM,
+            mapTypeId: google.maps.MapTypeId.SATELLITE,
             panControl: false,
             streetViewControl: true,
             streetViewControlOptions: {

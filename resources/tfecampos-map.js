@@ -7,6 +7,9 @@
     // the user selects a marker or searches for a place.
     // userZoom holds the zoom value the user has chosen.
     var DEFAULT_ZOOM = 11;
+    if (screen.width <= 480 ){
+        DEFAULT_ZOOM = 9;
+    }
     var AUTO_ZOOM = 18;
     var userZoom = DEFAULT_ZOOM;
     var map;

@@ -147,3 +147,31 @@ html, body, #map-canvas {
   height: 500px;
   overflow-y: scroll;    
 }
+
+@media only screen and (max-device-width: 480px) {
+   #type-selector {
+       display:none;
+   }
+    
+   #branding {
+       width: 70%;
+       margin-top:0; 
+       margin-left:0;
+   }    
+    
+   #field-search {
+       position: absolute;
+       left:0 !important;
+       top: 32px !important;
+       margin-top: 0 !important;
+       width: 99% !important;
+   }   
+    
+   #field-search:focus{
+       width: 99% !important;
+   }
+    
+   .ui-autocomplete {    
+     height: 80%;  
+   }
+}

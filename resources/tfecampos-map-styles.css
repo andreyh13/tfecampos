@@ -148,7 +148,7 @@ html, body, #map-canvas {
   overflow-y: scroll;    
 }
 
-@media only screen and (max-device-width: 480px) {
+@media only screen and (max-device-width: 960px) {
    #type-selector {
        display:none;
    }

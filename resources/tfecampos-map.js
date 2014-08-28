@@ -1,13 +1,34 @@
 (function(){
     var DATA_SERVICE_URL = "https://script.google.com/macros/s/AKfycbyxqfsV0zdCKFRxgYYWPVO1PMshyhiuvTbvuKkkHjEGimPcdlpd/exec?jsonp=?";
     var ICON_URL = "http://andreyh13.github.io/tfecampos/resources/soccerfield.png";
+    
+    var isMobile = {
+        Android: function() {
+            return navigator.userAgent.match(/Android/i);
+        },
+        BlackBerry: function() {
+            return navigator.userAgent.match(/BlackBerry/i);
+        },
+        iOS: function() {
+            return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+        },
+        Opera: function() {
+            return navigator.userAgent.match(/Opera Mini/i);
+        },
+        Windows: function() {
+            return navigator.userAgent.match(/IEMobile/i);
+        },
+        any: function() {
+            return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+        }
+    };
 
     // DEFAULT_ZOOM is the default zoom level for the map.
     // AUTO_ZOOM is the level used when we automatically zoom into a place when
     // the user selects a marker or searches for a place.
     // userZoom holds the zoom value the user has chosen.
     var DEFAULT_ZOOM = 11;
-    if (screen.width <= 480 ){
+    if (screen.width <= 960 || isMobile.any()){
         DEFAULT_ZOOM = 9;
     }
     var AUTO_ZOOM = 18;
@@ -197,17 +218,19 @@
 
       content.append($('<h2>').text(feature.getProperty('name')));
 
-      var infoP = $('<p>');
-      infoP.append($('<em>').text(feature.getProperty('municipality')));
-      content.append(infoP);
+      if(!isMobile.any()){    
+        var infoP = $('<p>');
+        infoP.append($('<em>').text(feature.getProperty('municipality')));
+        content.append(infoP);
         
-      content.append($('<p>').text(feature.getProperty('address')));    
+        content.append($('<p>').text(feature.getProperty('address')));    
 
-      if (feature.getProperty('description')) {
-        content.append($('<p>').text(feature.getProperty('description')));
-      }
-      if (feature.getProperty('phone')) {
-        content.append($('<p>').text('Teléfono: ' + feature.getProperty('phone')));
+        if (feature.getProperty('description')) {
+            content.append($('<p>').text(feature.getProperty('description')));
+        }
+        if (feature.getProperty('phone')) {
+            content.append($('<p>').text('Teléfono: ' + feature.getProperty('phone')));
+        }
       }
         
       if(showDirections || markerClicked){

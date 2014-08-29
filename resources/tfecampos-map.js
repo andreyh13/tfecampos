@@ -218,7 +218,7 @@
 
       content.append($('<h2>').text(feature.getProperty('name')));
 
-      if(!isMobile.any()){    
+      if(!(screen.width <= 960 || isMobile.any())){    
         var infoP = $('<p>');
         infoP.append($('<em>').text(feature.getProperty('municipality')));
         content.append(infoP);

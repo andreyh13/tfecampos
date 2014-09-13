@@ -17,18 +17,30 @@
 
 <!-- Load jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>    
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+    
+<!-- Polyfills -->
+<script src="resources/jquery.details.min.js"></script>    
 
 <!-- Set up the map and UI controls -->
 <script src="resources/tfecampos-map.js" charset="utf-8"></script>
 </head>
 
 <body>
-  <!-- Search box -->
-  <input id="field-search" type="text" placeholder="Busca el campo">
-
   <!-- Data type selectors -->
-  <div id="type-selector">
+  <details id="type-selector">
+    <summary id="type-selector-summary">
+        <span class="btright">&blacktriangleright;</span>
+        <!-- Search box -->
+        <input id="field-search" type="text" placeholder="Busca el campo">
+        <div id = "branding">
+            <span>
+                <!--Campos de fútbol Tfe-->
+                &Cscr;&afr;&mfr;&pfr;&ofr;&sfr; &dfr;&efr; &ffr;&ufr;&tfr;&bfr;&ofr;&lfr; &Tfr;&efr;&nfr;&efr;&rfr;&ifr;&ffr;&efr;
+            </span>
+        </div>
+    </summary> 
+    <div class="type-selector-details">  
     <input type="checkbox" name="type" id="selecttype-adeje" checked="checked">
     <label for="selecttype-adeje">Adeje</label>
     <input type="checkbox" name="type" id="selecttype-sauzal" checked="checked">
@@ -99,12 +111,9 @@
     <label for="selecttype-rosario">El Rosario</label>  
     <span style="float:right;"><a href="#" id="linktype-unselect-all">Desmarcar todo</a></span>    
     <span style="float:right;margin-right:12px;"><a href="#" id="linktype-select-all">Marcar todo</a></span>
-  </div>
-  <div id = "branding">
-     <span>
-         Campos de fútbol Tfe       
-     </span>
-  </div>
+    </div>    
+  </details>
+  
   <div id="directions-panel-wrapper">
       <div id="directions-panel">
           

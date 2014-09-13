@@ -306,7 +306,9 @@
     });
     
     $(function(){
-        $("#type-selector > input").change(function(){
+        $('#type-selector').details();
+        
+        $("#type-selector > .type-selector-details > input").change(function(){
             var type = $(this).attr("id").replace(/selecttype-/ig,'');
             checkboxes[type] = this.checked;
             // Tell the Data Layer to recompute the style, since checkboxes have changed.
@@ -314,7 +316,7 @@
         });
         
         $("a#linktype-select-all").click(function(){
-            $("#type-selector > input").each(function(){
+            $("#type-selector > .type-selector-details > input").each(function(){
                 this.checked = true;
                 var type = $(this).attr("id").replace(/selecttype-/ig,'');
                 checkboxes[type] = this.checked;
@@ -323,7 +325,7 @@
             return false;
         });
         $("a#linktype-unselect-all").click(function(){
-            $("#type-selector > input").each(function(){
+            $("#type-selector > .type-selector-details > input").each(function(){
                 this.checked = false;
                 var type = $(this).attr("id").replace(/selecttype-/ig,'');
                 checkboxes[type] = this.checked;

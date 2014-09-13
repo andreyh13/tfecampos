@@ -5,22 +5,23 @@ html, body, #map-canvas {
 }
 
  #branding {
-  margin-top: 16px;
-  margin-left: 5px;
+  margin-top: 5px;
+  margin-left: 30px;
   border: 1px solid transparent;
   border-radius: 2px 0 0 2px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   height: 32px;
-  width: 448px;
+  width: 422px;
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   font-family: Roboto;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   color: #fff;
   background-color: #4d90fe;
-  padding: 5px 11px 0px 11px;
+  padding: 2px 11px 0px 11px;
+  z-index: 1 !important;     
 }
 
 #type-selector {
@@ -30,13 +31,19 @@ html, body, #map-canvas {
   border-radius: 2px 0 0 2px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  height: 152px;
+  height: auto;
+  min-height: 32px;    
   width: 848px;
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   color: #000;
   background-color: #fff;
   padding: 5px 11px 0px 11px;
+  top: 0 !important;    
+}
+
+#type-selector summary, #type-selector-summary {
+  height: 25px;
 }
 
 #type-selector label {
@@ -48,7 +55,7 @@ html, body, #map-canvas {
 }
 
 #field-search {
-  margin-top: 16px;
+  margin-top: 5px;
   border: 1px solid transparent;
   border-radius: 2px 0 0 2px;
   box-sizing: border-box;
@@ -63,6 +70,7 @@ html, body, #map-canvas {
   font-size: 15px;
   font-weight: 300;
   text-overflow: ellipsis;
+  z-index: 1 !important;    
 }
 
 #field-search:focus {
@@ -142,10 +150,21 @@ html, body, #map-canvas {
     background-position: 0 -14px;
     padding: 0 0 0 32px;
     color: #D76200;
+    margin:0;
+    width: 600px;
+}
+.gm-style .gm-style-iw p {
+  margin: 0;
 }
 .ui-autocomplete {
   height: 500px;
   overflow-y: scroll;    
+}
+.btright{
+  font-size: 16px;
+}
+.type-selector-details{
+    margin: 12px 0;
 }
 
 @media only screen and (max-device-width: 960px) {
@@ -178,6 +197,7 @@ html, body, #map-canvas {
    .gm-style-iw h2 {
        margin: 0;
        font-size: 18px;
+       with: 98%;
    }  
     
    #place-search {

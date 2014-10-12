@@ -139,7 +139,9 @@ html, body, #map-canvas {
   padding: 5px 11px;  
   display: none;    
 }
-
+.directions-panel-link{
+  height: 12px;
+}
 #directions-panel-switch{
   float: right;
   margin-right: 11px;    

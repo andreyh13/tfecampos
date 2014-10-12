@@ -22,17 +22,25 @@
             return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
         }
     };
+    
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    var isChrome = !!window.chrome; 
 
     // DEFAULT_ZOOM is the default zoom level for the map.
     // AUTO_ZOOM is the level used when we automatically zoom into a place when
     // the user selects a marker or searches for a place.
     // userZoom holds the zoom value the user has chosen.
     var DEFAULT_ZOOM = 11;
-    if (screen.width <= 960 || isMobile.any()){
+    /*if (screen.width <= 960 || isMobile.any()){
         DEFAULT_ZOOM = 9;
-    }
+    }*/
+    
+    var bounds = new google.maps.LatLngBounds();
+        
     var AUTO_ZOOM = 18;
     var userZoom = DEFAULT_ZOOM;
+    
+    
     var map;
     var checkboxes = {};
     var infoWindow = new google.maps.InfoWindow({
@@ -49,10 +57,12 @@
     var markerClicked = false;
     var previousName;
     
+    var centerTfe = new google.maps.LatLng(28.2945288, -16.565290900000036);
+    
     // This function is called after the page has loaded, to set up the map.
     function initializeMap() {
         map = new google.maps.Map(document.getElementById("map-canvas"), {
-            center: new google.maps.LatLng(28.2945288, -16.565290900000036),
+            center: centerTfe,
             zoom: DEFAULT_ZOOM,
             mapTypeId: google.maps.MapTypeId.SATELLITE,
             panControl: false,
@@ -121,7 +131,11 @@
                       category: data[i][0],
                     });
                     hashLatLng[data[i][1]] = new google.maps.LatLng(data[i][5],data[i][6]);
+                    bounds.extend(hashLatLng[data[i][1]]);
                 }
+                map.fitBounds(bounds);
+                DEFAULT_ZOOM = map.getZoom();
+                userZoom = DEFAULT_ZOOM;
             }
         });
         
@@ -253,6 +267,7 @@
       if (currentName == previousName) {
         // This is the second click, so zoom back to user's previous zoom level.
         map.setZoom(userZoom);
+        map.setCenter(centerTfe);  
         // Reset flags ready for next time round.
         previousName = '';
         markerClicked = false;
@@ -306,6 +321,10 @@
     });
     
     $(function(){
+        if(isChrome || isFirefox){
+            $("#branding > span").html("&Cscr;&afr;&mfr;&pfr;&ofr;&sfr; &dfr;&efr; &ffr;&ufr;&tfr;&bfr;&ofr;&lfr; &Tfr;&efr;&nfr;&efr;&rfr;&ifr;&ffr;&efr;");
+        }
+        
         $('#type-selector').details();
         
         $("#type-selector > .type-selector-details > input").change(function(){
@@ -339,4 +358,3 @@
         });
     });
 })();
-

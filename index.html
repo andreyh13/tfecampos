@@ -3,6 +3,7 @@
 <head>
 <title>Campos de fútbol en Tenerife</title>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
+<meta charset="utf-8" />   
 
 <link href="resources/tfecampos-map-styles.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />    
@@ -12,7 +13,7 @@
 
 <!-- Load the Google Maps JavaScript API -->
 <script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb-4A42Z6CjaOhWuzzDNCqJpP7_CR9Gjs&libraries=places">
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb-4A42Z6CjaOhWuzzDNCqJpP7_CR9Gjs&libraries=places&language=es">
 </script>
 
 <!-- Load jQuery -->
@@ -36,7 +37,7 @@
         <div id = "branding">
             <span>
                 <!--Campos de fútbol Tfe-->
-                &Cscr;&afr;&mfr;&pfr;&ofr;&sfr; &dfr;&efr; &ffr;&ufr;&tfr;&bfr;&ofr;&lfr; &Tfr;&efr;&nfr;&efr;&rfr;&ifr;&ffr;&efr;
+                Campos de fútbol Tenerife
             </span>
         </div>
     </summary> 
@@ -115,12 +116,12 @@
   </details>
   
   <div id="directions-panel-wrapper">
+      <div class="directions-panel-link">
+          <a href="#" id="directions-panel-switch">Ocultar</a>
+      </div>
       <div id="directions-panel">
           
       </div>
-      <span>
-          <a href="#" id="directions-panel-switch">Ocultar</a>
-      </span>
   </div>    
 
   <!-- Map -->

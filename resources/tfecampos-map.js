@@ -1,7 +1,7 @@
 (function(){
     var DATA_SERVICE_URL = "https://script.google.com/macros/s/AKfycbyxqfsV0zdCKFRxgYYWPVO1PMshyhiuvTbvuKkkHjEGimPcdlpd/exec?jsonp=?";
     var ICON_URL = "http://andreyh13.github.io/tfecampos/resources/soccerfield.png";
-    
+
     var isMobile = {
         Android: function() {
             return navigator.userAgent.match(/Android/i);
@@ -22,9 +22,9 @@
             return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
         }
     };
-    
+
     var isFirefox = typeof InstallTrigger !== 'undefined';
-    var isChrome = !!window.chrome; 
+    var isChrome = !!window.chrome;
 
     // DEFAULT_ZOOM is the default zoom level for the map.
     // AUTO_ZOOM is the level used when we automatically zoom into a place when
@@ -34,13 +34,13 @@
     /*if (screen.width <= 960 || isMobile.any()){
         DEFAULT_ZOOM = 9;
     }*/
-    
+
     var bounds = new google.maps.LatLngBounds();
-        
+
     var AUTO_ZOOM = 18;
     var userZoom = DEFAULT_ZOOM;
-    
-    
+
+
     var map;
     var checkboxes = {};
     var infoWindow = new google.maps.InfoWindow({
@@ -49,16 +49,16 @@
     });
     var directionsService = new google.maps.DirectionsService();
     var directionsDisplay;
-    
+
     // The markerClicked flag indicates whether an info window is open because the
     // user clicked a marker. True means the user clicked a marker. False
     // means the user simply hovered over the marker, or the user has closed the
     // info window.
     var markerClicked = false;
     var previousName;
-    
+
     var centerTfe = new google.maps.LatLng(28.2945288, -16.565290900000036);
-    
+
     // This function is called after the page has loaded, to set up the map.
     function initializeMap() {
         map = new google.maps.Map(document.getElementById("map-canvas"), {
@@ -67,16 +67,20 @@
             mapTypeId: google.maps.MapTypeId.SATELLITE,
             panControl: false,
             streetViewControl: true,
+            mapTypeControlOptions: {
+              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+              position: google.maps.ControlPosition.TOP_RIGHT
+            },
             streetViewControlOptions: {
-                position: google.maps.ControlPosition.LEFT_BOTTOM
+                position: google.maps.ControlPosition.RIGHT_BOTTOM
             },
             zoomControl: true,
             zoomControlOptions: {
-                position: google.maps.ControlPosition.LEFT_BOTTOM
+                position: google.maps.ControlPosition.RIGHT_BOTTOM
             }
         });
         directionsDisplay = new google.maps.DirectionsRenderer();
-        
+
         setEventHandlers();
         // The techCommItemStyle() function computes how each item should be styled.
         // Register it here.
@@ -91,7 +95,7 @@
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(branding);
         map.controls[google.maps.ControlPosition.LEFT_TOP].push(types);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-        
+
         var dirpanel = document.getElementById("directions-panel-wrapper");
         map.controls[google.maps.ControlPosition.RIGHT_TOP].push(dirpanel);
 
@@ -122,12 +126,12 @@
                         type: data[i][7]
                       },
                       geometry: {
-                        lat: data[i][5], 
+                        lat: data[i][5],
                         lng: data[i][6]
                       }
                     });
                     srchopts.push({
-                      label: data[i][1], 
+                      label: data[i][1],
                       category: data[i][0],
                     });
                     hashLatLng[data[i][1]] = new google.maps.LatLng(data[i][5],data[i][6]);
@@ -138,7 +142,7 @@
                 userZoom = DEFAULT_ZOOM;
             }
         });
-        
+
         $( "#field-search" ).catcomplete({
             delay: 0,
             source: srchopts,
@@ -157,12 +161,12 @@
 
     // Returns the style that should be used to display the given feature.
     function tfeCampItemStyle(feature) {
-      var type = feature.getProperty("type");   
-        
-       
-        
+      var type = feature.getProperty("type");
+
+
+
       var style = {
-        icon: ICON_URL, 
+        icon: ICON_URL,
         // Show the markers for this type if
         // the user has selected the corresponding checkbox.
         visible: (checkboxes[type] != false)
@@ -177,10 +181,10 @@
 
       // Show an info window when the mouse hovers over an item.
       map.data.addListener('mouseover', function(event) {
-        if(!markerClicked){  
+        if(!markerClicked){
             createInfoWindow(event.feature);
             infoWindow.open(map);
-        }    
+        }
       });
 
       // Close the info window when the mouse leaves an item.
@@ -194,14 +198,14 @@
       infoWindow.addListener('closeclick', function() {
         markerClicked = false;
       });
-        
+
       google.maps.event.addListener(infoWindow, 'domready', function(){
             var input = document.getElementById('place-search');
             if(input){
                 var autocomplete = new google.maps.places.Autocomplete(input);
                 autocomplete.bindTo('bounds', map);
             }
-          
+
             $("#place-search-btn").click(function(){
                 var start = document.getElementById('place-search').value;
                 if(start){
@@ -219,8 +223,8 @@
                         }
                     });
                 }
-            }); 
-      });       
+            });
+      });
     }
 
     // Create a popup window containing the tech comm info.
@@ -232,12 +236,12 @@
 
       content.append($('<h2>').text(feature.getProperty('name')));
 
-      if(!(screen.width <= 960 || isMobile.any())){    
+      if(!(screen.width <= 960 || isMobile.any())){
         var infoP = $('<p>');
         infoP.append($('<em>').text(feature.getProperty('municipality')));
         content.append(infoP);
-        
-        content.append($('<p>').text(feature.getProperty('address')));    
+
+        content.append($('<p>').text(feature.getProperty('address')));
 
         if (feature.getProperty('description')) {
             content.append($('<p>').text(feature.getProperty('description')));
@@ -246,15 +250,15 @@
             content.append($('<p>').text('Teléfono: ' + feature.getProperty('phone')));
         }
       }
-        
+
       if(showDirections || markerClicked){
           var srch_html = "Como llegar desde <input id='place-search' type='text' value='' placeholder='Introduzca su dirección' />";
           srch_html += '<input type="button" id="place-search-btn" value="Buscar" />';
           var dirs = $("<div id='directions-info-window'>");
           dirs.html(srch_html);
-          
+
           content.append(dirs);
-      }    
+      }
 
       infoWindow.setContent(content.html());
     }
@@ -267,12 +271,12 @@
       if (currentName == previousName) {
         // This is the second click, so zoom back to user's previous zoom level.
         map.setZoom(userZoom);
-        map.setCenter(centerTfe);  
+        map.setCenter(centerTfe);
         // Reset flags ready for next time round.
         previousName = '';
         markerClicked = false;
       } else {
-        previousName = event.feature.getProperty('name'); 
+        previousName = event.feature.getProperty('name');
         // This is the first click, so show the popup window and zoom in.
         createInfoWindow(event.feature, true);
 
@@ -292,13 +296,13 @@
         markerClicked = true;
         directionsDisplay.setPanel(null);
         directionsDisplay.setMap(null);
-        $("#directions-panel-wrapper").hide();  
+        $("#directions-panel-wrapper").hide();
       }
     }
 
     // Load the map.
     google.maps.event.addDomListener(window, 'load', initializeMap);
-    
+
     $.widget( "custom.catcomplete", $.ui.autocomplete, {
         _create: function() {
             this._super();
@@ -319,21 +323,21 @@
             });
         }
     });
-    
+
     $(function(){
         if(isChrome || isFirefox){
             $("#branding > span").html("&Cscr;&afr;&mfr;&pfr;&ofr;&sfr; &dfr;&efr; &ffr;&ufr;&tfr;&bfr;&ofr;&lfr; &Tfr;&efr;&nfr;&efr;&rfr;&ifr;&ffr;&efr;");
         }
-        
+
         $('#type-selector').details();
-        
+
         $("#type-selector > .type-selector-details > input").change(function(){
             var type = $(this).attr("id").replace(/selecttype-/ig,'');
             checkboxes[type] = this.checked;
             // Tell the Data Layer to recompute the style, since checkboxes have changed.
-            map.data.setStyle(tfeCampItemStyle);      
+            map.data.setStyle(tfeCampItemStyle);
         });
-        
+
         $("a#linktype-select-all").click(function(){
             $("#type-selector > .type-selector-details > input").each(function(){
                 this.checked = true;

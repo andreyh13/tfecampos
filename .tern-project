@@ -1,0 +1,10 @@
+{
+  "ecmaVersion": 6,
+  "libs": [
+    "browser",
+    "jquery"
+  ],
+  "loadEagerly": [
+    "/home/andriy/geoworkspace/mapsapi-ternjs/googlemapsjsv3.json"
+  ]
+}

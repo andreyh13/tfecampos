@@ -1,6 +1,10 @@
-(function(){
-    var DATA_SERVICE_URL = "https://script.google.com/macros/s/AKfycbyxqfsV0zdCKFRxgYYWPVO1PMshyhiuvTbvuKkkHjEGimPcdlpd/exec?jsonp=?";
-    var ICON_URL = "http://andreyh13.github.io/tfecampos/resources/soccerfield.png";
+var tfeCamposApp = (function(){
+    'use strict';
+    var DATA_SERVICE_URL = "https://script.google.com/macros/s/AKfycbyxqfsV0zdCKFRxgYYWPVO1PMshyhiuvTbvuKkkHjEGimPcdlpd/exec?jsonp=?",
+        ICON_URL = "http://andreyh13.github.io/tfecampos/resources/soccerfield.png",
+        isFirefox = typeof InstallTrigger !== 'undefined',
+        isChrome = !!window.chrome,
+        map, bounds, infoWindow, directionsService, directionsDisplay, centerTfe;
 
     var isMobile = {
         Android: function() {
@@ -23,32 +27,15 @@
         }
     };
 
-    var isFirefox = typeof InstallTrigger !== 'undefined';
-    var isChrome = !!window.chrome;
 
     // DEFAULT_ZOOM is the default zoom level for the map.
     // AUTO_ZOOM is the level used when we automatically zoom into a place when
     // the user selects a marker or searches for a place.
     // userZoom holds the zoom value the user has chosen.
     var DEFAULT_ZOOM = 11;
-    /*if (screen.width <= 960 || isMobile.any()){
-        DEFAULT_ZOOM = 9;
-    }*/
-
-    var bounds = new google.maps.LatLngBounds();
-
     var AUTO_ZOOM = 18;
     var userZoom = DEFAULT_ZOOM;
-
-
-    var map;
     var checkboxes = {};
-    var infoWindow = new google.maps.InfoWindow({
-        pixelOffset: new google.maps.Size(0, -35),
-        disableAutoPan: true
-    });
-    var directionsService = new google.maps.DirectionsService();
-    var directionsDisplay;
 
     // The markerClicked flag indicates whether an info window is open because the
     // user clicked a marker. True means the user clicked a marker. False
@@ -57,10 +44,19 @@
     var markerClicked = false;
     var previousName;
 
-    var centerTfe = new google.maps.LatLng(28.2945288, -16.565290900000036);
-
     // This function is called after the page has loaded, to set up the map.
     function initializeMap() {
+        bounds = new google.maps.LatLngBounds();
+
+        infoWindow = new google.maps.InfoWindow({
+            pixelOffset: new google.maps.Size(0, -35),
+            disableAutoPan: true
+        });
+
+        directionsService = new google.maps.DirectionsService();
+
+        centerTfe = new google.maps.LatLng(28.2945288, -16.565290900000036);
+
         map = new google.maps.Map(document.getElementById("map-canvas"), {
             center: centerTfe,
             zoom: DEFAULT_ZOOM,
@@ -301,7 +297,7 @@
     }
 
     // Load the map.
-    google.maps.event.addDomListener(window, 'load', initializeMap);
+    //google.maps.event.addDomListener(window, 'load', initializeMap);
 
     $.widget( "custom.catcomplete", $.ui.autocomplete, {
         _create: function() {
@@ -361,4 +357,8 @@
             return false;
         });
     });
+
+    return {
+        initMap: initializeMap
+    };
 })();

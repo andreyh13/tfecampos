@@ -65,7 +65,7 @@ var tfeCamposApp = (function(){
             streetViewControl: true,
             mapTypeControlOptions: {
               style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-              position: google.maps.ControlPosition.TOP_RIGHT
+              position: google.maps.ControlPosition.TOP_LEFT
             },
             streetViewControlOptions: {
                 position: google.maps.ControlPosition.RIGHT_BOTTOM
@@ -82,15 +82,6 @@ var tfeCamposApp = (function(){
         // Register it here.
         map.data.setStyle(tfeCampItemStyle);
 
-        // Add the search box and data type selectors to the UI.
-        var input = /** @type {HTMLInputElement} */(
-            document.getElementById('field-search'));
-
-        var types = document.getElementById('type-selector');
-        var branding = document.getElementById('branding');
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(branding);
-        map.controls[google.maps.ControlPosition.LEFT_TOP].push(types);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         var dirpanel = document.getElementById("directions-panel-wrapper");
         map.controls[google.maps.ControlPosition.RIGHT_TOP].push(dirpanel);
@@ -356,6 +347,8 @@ var tfeCamposApp = (function(){
             $("#directions-panel-wrapper").hide();
             return false;
         });
+
+        $(".mdl-layout__content .page-content").height($(".mdl-layout__content").height());
     });
 
     return {

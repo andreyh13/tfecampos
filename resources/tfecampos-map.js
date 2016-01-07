@@ -2,6 +2,7 @@ var tfeCamposApp = (function(){
     'use strict';
     var DATA_SERVICE_URL = "https://script.google.com/macros/s/AKfycbyxqfsV0zdCKFRxgYYWPVO1PMshyhiuvTbvuKkkHjEGimPcdlpd/exec?jsonp=?",
         ICON_URL = "http://andreyh13.github.io/tfecampos/resources/soccerfield.png",
+        MUNICIPY_CHECKBOX_SELECTOR = ".mdl-layout__drawer > .admin-area-2 > input[type='checkbox']",
         isFirefox = typeof InstallTrigger !== 'undefined',
         isChrome = !!window.chrome,
         map, bounds, infoWindow, directionsService, directionsDisplay, centerTfe;
@@ -312,38 +313,30 @@ var tfeCamposApp = (function(){
     });
 
     $(function(){
-        if(isChrome || isFirefox){
-            $("#branding > span").html("&Cscr;&afr;&mfr;&pfr;&ofr;&sfr; &dfr;&efr; &ffr;&ufr;&tfr;&bfr;&ofr;&lfr; &Tfr;&efr;&nfr;&efr;&rfr;&ifr;&ffr;&efr;");
+        function m_toggle_checkboxes (value) {
+            $(MUNICIPY_CHECKBOX_SELECTOR).each(function () {
+                this.checked = value;
+                var type = $(this).attr("id").replace(/selecttype-/ig, '');
+                checkboxes[type] = this.checked;
+            });
+            map.data.setStyle(tfeCampItemStyle);
         }
 
-        $('#type-selector').details();
-
-        $("#type-selector > .type-selector-details > input").change(function(){
-            var type = $(this).attr("id").replace(/selecttype-/ig,'');
+        $(MUNICIPY_CHECKBOX_SELECTOR).change(function(){
+            var type = $(this).attr("id").replace(/selecttype-/ig, '');
             checkboxes[type] = this.checked;
             // Tell the Data Layer to recompute the style, since checkboxes have changed.
             map.data.setStyle(tfeCampItemStyle);
         });
-
-        $("a#linktype-select-all").click(function(){
-            $("#type-selector > .type-selector-details > input").each(function(){
-                this.checked = true;
-                var type = $(this).attr("id").replace(/selecttype-/ig,'');
-                checkboxes[type] = this.checked;
-            });
-            map.data.setStyle(tfeCampItemStyle);
+        $("button#linktype-select-all").click(function () {
+            m_toggle_checkboxes(true);
             return false;
         });
-        $("a#linktype-unselect-all").click(function(){
-            $("#type-selector > .type-selector-details > input").each(function(){
-                this.checked = false;
-                var type = $(this).attr("id").replace(/selecttype-/ig,'');
-                checkboxes[type] = this.checked;
-            });
-            map.data.setStyle(tfeCampItemStyle);
+        $("button#linktype-unselect-all").click(function () {
+            m_toggle_checkboxes(false);
             return false;
         });
-        $("#directions-panel-switch").click(function(){
+        $("#directions-panel-switch").click(function () {
             $("#directions-panel-wrapper").hide();
             return false;
         });

@@ -83,11 +83,6 @@ var tfeCamposApp = (function(){
         // Register it here.
         map.data.setStyle(tfeCampItemStyle);
 
-
-        var dirpanel = document.getElementById("directions-panel-wrapper");
-        map.controls[google.maps.ControlPosition.RIGHT_TOP].push(dirpanel);
-
-
         // When the user searches for and selects a place, zoom in and add a marker.
         var searchMarker = new google.maps.Marker({
             map: map,
@@ -207,7 +202,7 @@ var tfeCamposApp = (function(){
                             directionsDisplay.setPanel(document.getElementById("directions-panel"));
                             directionsDisplay.setMap(map);
                             directionsDisplay.setDirections(response);
-                            $("#directions-panel-wrapper").show();
+                            $('#directions-btn').click();
                         }
                     });
                 }
@@ -284,7 +279,6 @@ var tfeCamposApp = (function(){
         markerClicked = true;
         directionsDisplay.setPanel(null);
         directionsDisplay.setMap(null);
-        $("#directions-panel-wrapper").hide();
       }
     }
 
@@ -336,12 +330,24 @@ var tfeCamposApp = (function(){
             m_toggle_checkboxes(false);
             return false;
         });
-        $("#directions-panel-switch").click(function () {
-            $("#directions-panel-wrapper").hide();
-            return false;
-        });
 
         $(".mdl-layout__content .page-content").height($(".mdl-layout__content").height());
+
+        $('#directions-btn').click(function () {
+            if($('.mdl-layout__drawer-right').hasClass('active')){
+                $('.mdl-layout__drawer-right').removeClass('active');
+            } else{
+                $('.mdl-layout__drawer-right').addClass('active');
+            }
+        });
+
+        $('.mdl-layout__obfuscator-right').click(function () {
+            if($('.mdl-layout__drawer-right').hasClass('active')){
+                $('.mdl-layout__drawer-right').removeClass('active');
+            } else {
+                $('.mdl-layout__drawer-right').addClass('active');
+            }
+        });
     });
 
     return {

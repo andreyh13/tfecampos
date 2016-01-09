@@ -27,6 +27,9 @@
                     <div class="mdl-textfield__expandable-holder">
                         <input class="mdl-textfield__input" type="text" id="field-search" placeholder="Busca el campo" />
                     </div>
+                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="directions-btn">
+                        <i class="material-icons">directions</i>
+                    </button>
                 </div>
             </div>
         </header>
@@ -124,22 +127,19 @@
                 </span>
             </div>
         </div>
+        <div class="mdl-layout__drawer-right">
+            <span class="mdl-layout-title">Direcciones</span>
+            <!-- Data type selectors -->
+            <div id="directions-panel">
+            </div>
+        </div>
         <main class="mdl-layout__content">
             <div class="page-content">
-                  <!-- Data type selectors -->
-                  <div id="directions-panel-wrapper">
-                      <div class="directions-panel-link">
-                          <a href="#" id="directions-panel-switch">Ocultar</a>
-                      </div>
-                      <div id="directions-panel">
-
-                      </div>
-                  </div>
-
                   <!-- Map -->
                   <div id="map-canvas"></div>
             </div>
         </main>
+        <div class="mdl-layout__obfuscator-right"></div>
     </div>
 
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
@@ -147,9 +147,6 @@
     <!-- Load jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
-
-    <!-- Polyfills -->
-    <script src="resources/jquery.details.min.js"></script>
 
     <!-- Set up the map and UI controls -->
     <script src="resources/tfecampos-map.js" charset="utf-8"></script>

@@ -1,6 +1,11 @@
-(function(){
-    var DATA_SERVICE_URL = "https://script.google.com/macros/s/AKfycbyxqfsV0zdCKFRxgYYWPVO1PMshyhiuvTbvuKkkHjEGimPcdlpd/exec?jsonp=?";
-    var ICON_URL = "http://andreyh13.github.io/tfecampos/resources/soccerfield.png";
+var tfeCamposApp = (function(){
+    'use strict';
+    var DATA_SERVICE_URL = "https://script.google.com/macros/s/AKfycbyxqfsV0zdCKFRxgYYWPVO1PMshyhiuvTbvuKkkHjEGimPcdlpd/exec?jsonp=?",
+        ICON_URL = "http://andreyh13.github.io/tfecampos/resources/soccerfield.png",
+        MUNICIPY_CHECKBOX_SELECTOR = ".mdl-layout__drawer > .admin-area-2 > input[type='checkbox']",
+        isFirefox = typeof InstallTrigger !== 'undefined',
+        isChrome = !!window.chrome,
+        map, bounds, infoWindow, directionsService, directionsDisplay, centerTfe;
 
     var isMobile = {
         Android: function() {
@@ -23,32 +28,15 @@
         }
     };
 
-    var isFirefox = typeof InstallTrigger !== 'undefined';
-    var isChrome = !!window.chrome;
 
     // DEFAULT_ZOOM is the default zoom level for the map.
     // AUTO_ZOOM is the level used when we automatically zoom into a place when
     // the user selects a marker or searches for a place.
     // userZoom holds the zoom value the user has chosen.
     var DEFAULT_ZOOM = 11;
-    /*if (screen.width <= 960 || isMobile.any()){
-        DEFAULT_ZOOM = 9;
-    }*/
-
-    var bounds = new google.maps.LatLngBounds();
-
     var AUTO_ZOOM = 18;
     var userZoom = DEFAULT_ZOOM;
-
-
-    var map;
     var checkboxes = {};
-    var infoWindow = new google.maps.InfoWindow({
-        pixelOffset: new google.maps.Size(0, -35),
-        disableAutoPan: true
-    });
-    var directionsService = new google.maps.DirectionsService();
-    var directionsDisplay;
 
     // The markerClicked flag indicates whether an info window is open because the
     // user clicked a marker. True means the user clicked a marker. False
@@ -57,10 +45,19 @@
     var markerClicked = false;
     var previousName;
 
-    var centerTfe = new google.maps.LatLng(28.2945288, -16.565290900000036);
-
     // This function is called after the page has loaded, to set up the map.
     function initializeMap() {
+        bounds = new google.maps.LatLngBounds();
+
+        infoWindow = new google.maps.InfoWindow({
+            pixelOffset: new google.maps.Size(0, -35),
+            disableAutoPan: true
+        });
+
+        directionsService = new google.maps.DirectionsService();
+
+        centerTfe = new google.maps.LatLng(28.2945288, -16.565290900000036);
+
         map = new google.maps.Map(document.getElementById("map-canvas"), {
             center: centerTfe,
             zoom: DEFAULT_ZOOM,
@@ -69,7 +66,7 @@
             streetViewControl: true,
             mapTypeControlOptions: {
               style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-              position: google.maps.ControlPosition.TOP_RIGHT
+              position: google.maps.ControlPosition.TOP_LEFT
             },
             streetViewControlOptions: {
                 position: google.maps.ControlPosition.RIGHT_BOTTOM
@@ -85,20 +82,6 @@
         // The techCommItemStyle() function computes how each item should be styled.
         // Register it here.
         map.data.setStyle(tfeCampItemStyle);
-
-        // Add the search box and data type selectors to the UI.
-        var input = /** @type {HTMLInputElement} */(
-            document.getElementById('field-search'));
-
-        var types = document.getElementById('type-selector');
-        var branding = document.getElementById('branding');
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(branding);
-        map.controls[google.maps.ControlPosition.LEFT_TOP].push(types);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        var dirpanel = document.getElementById("directions-panel-wrapper");
-        map.controls[google.maps.ControlPosition.RIGHT_TOP].push(dirpanel);
-
 
         // When the user searches for and selects a place, zoom in and add a marker.
         var searchMarker = new google.maps.Marker({
@@ -219,7 +202,7 @@
                             directionsDisplay.setPanel(document.getElementById("directions-panel"));
                             directionsDisplay.setMap(map);
                             directionsDisplay.setDirections(response);
-                            $("#directions-panel-wrapper").show();
+                            $('#directions-btn').click();
                         }
                     });
                 }
@@ -296,12 +279,11 @@
         markerClicked = true;
         directionsDisplay.setPanel(null);
         directionsDisplay.setMap(null);
-        $("#directions-panel-wrapper").hide();
       }
     }
 
     // Load the map.
-    google.maps.event.addDomListener(window, 'load', initializeMap);
+    //google.maps.event.addDomListener(window, 'load', initializeMap);
 
     $.widget( "custom.catcomplete", $.ui.autocomplete, {
         _create: function() {
@@ -325,40 +307,50 @@
     });
 
     $(function(){
-        if(isChrome || isFirefox){
-            $("#branding > span").html("&Cscr;&afr;&mfr;&pfr;&ofr;&sfr; &dfr;&efr; &ffr;&ufr;&tfr;&bfr;&ofr;&lfr; &Tfr;&efr;&nfr;&efr;&rfr;&ifr;&ffr;&efr;");
+        function m_toggle_checkboxes (value) {
+            $(MUNICIPY_CHECKBOX_SELECTOR).each(function () {
+                this.checked = value;
+                var type = $(this).attr("id").replace(/selecttype-/ig, '');
+                checkboxes[type] = this.checked;
+            });
+            map.data.setStyle(tfeCampItemStyle);
         }
 
-        $('#type-selector').details();
-
-        $("#type-selector > .type-selector-details > input").change(function(){
-            var type = $(this).attr("id").replace(/selecttype-/ig,'');
+        $(MUNICIPY_CHECKBOX_SELECTOR).change(function(){
+            var type = $(this).attr("id").replace(/selecttype-/ig, '');
             checkboxes[type] = this.checked;
             // Tell the Data Layer to recompute the style, since checkboxes have changed.
             map.data.setStyle(tfeCampItemStyle);
         });
+        $("button#linktype-select-all").click(function () {
+            m_toggle_checkboxes(true);
+            return false;
+        });
+        $("button#linktype-unselect-all").click(function () {
+            m_toggle_checkboxes(false);
+            return false;
+        });
 
-        $("a#linktype-select-all").click(function(){
-            $("#type-selector > .type-selector-details > input").each(function(){
-                this.checked = true;
-                var type = $(this).attr("id").replace(/selecttype-/ig,'');
-                checkboxes[type] = this.checked;
-            });
-            map.data.setStyle(tfeCampItemStyle);
-            return false;
+        $(".mdl-layout__content .page-content").height($(".mdl-layout__content").height());
+
+        $('#directions-btn').click(function () {
+            if($('.mdl-layout__drawer-right').hasClass('active')){
+                $('.mdl-layout__drawer-right').removeClass('active');
+            } else{
+                $('.mdl-layout__drawer-right').addClass('active');
+            }
         });
-        $("a#linktype-unselect-all").click(function(){
-            $("#type-selector > .type-selector-details > input").each(function(){
-                this.checked = false;
-                var type = $(this).attr("id").replace(/selecttype-/ig,'');
-                checkboxes[type] = this.checked;
-            });
-            map.data.setStyle(tfeCampItemStyle);
-            return false;
-        });
-        $("#directions-panel-switch").click(function(){
-            $("#directions-panel-wrapper").hide();
-            return false;
+
+        $('.mdl-layout__obfuscator-right').click(function () {
+            if($('.mdl-layout__drawer-right').hasClass('active')){
+                $('.mdl-layout__drawer-right').removeClass('active');
+            } else {
+                $('.mdl-layout__drawer-right').addClass('active');
+            }
         });
     });
+
+    return {
+        initMap: initializeMap
+    };
 })();

@@ -4,80 +4,30 @@ html, body, #map-canvas {
   padding: 0px
 }
 
- #branding {
-  margin-top: 5px;
-  margin-left: 30px;
-  border: 1px solid transparent;
-  border-radius: 2px 0 0 2px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  height: 32px;
-  width: 422px;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+.page-content {
+    display: block;
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+
+.admin-area-2 label {
   font-family: Roboto;
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #4d90fe;
-  padding: 2px 11px 0px 11px;
-  z-index: 1 !important;     
-}
-
-#type-selector {
-  margin-top: 5px;
-  margin-left: 5px;
-  border: 1px solid transparent;
-  border-radius: 2px 0 0 2px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  height: auto;
-  min-height: 32px;    
-  width: 848px;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  color: #000;
-  background-color: #fff;
-  padding: 5px 11px 0px 11px;
-  top: 0 !important;    
-}
-
-#type-selector summary, #type-selector-summary {
-  height: 25px;
-}
-
-#type-selector label {
-  font-family: Roboto;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 300;
-  width: 138px;
-  display: inline-block;  
+  min-width: 38px;
+  display: inline-block;
+  margin-right: 4px;
 }
 
 #field-search {
-  margin-top: 5px;
-  border: 1px solid transparent;
-  border-radius: 2px 0 0 2px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  height: 32px;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  background-color: #fff;
-  padding: 0 11px 0 13px;
-  width: 400px;
   font-family: Roboto;
   font-size: 15px;
   font-weight: 300;
-  text-overflow: ellipsis;
-  z-index: 1 !important;    
 }
 
-#field-search:focus {
-  border-color: #4d90fe;
-  margin-left: -1px;
-  padding-left: 14px;  /* Regular padding-left + 1. */
-  width: 401px;
+.mdl-layout__drawer .mdl-button {
+    font-size: 13px;
 }
 
 .pac-container {
@@ -92,12 +42,6 @@ html, body, #map-canvas {
   -moz-box-sizing: border-box;
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-#infowindow h2 {
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 500;
 }
 
 .ui-autocomplete-category {
@@ -125,27 +69,6 @@ html, body, #map-canvas {
   border-color: #4d90fe;
   width: 401px;
 }
-#directions-panel-wrapper {
-  margin-top: 5px;
-  margin-right: 5px;
-  border: 1px solid transparent;
-  border-radius: 2px 0 0 2px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  width: 400px;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  background-color: #ffffff;
-  padding: 5px 11px;  
-  display: none;    
-}
-.directions-panel-link{
-  height: 12px;
-}
-#directions-panel-switch{
-  float: right;
-  margin-right: 11px;    
-}
 .gm-style-iw h2 {
     background-image: url('soccer.png');
     background-repeat: no-repeat;
@@ -153,7 +76,9 @@ html, body, #map-canvas {
     padding: 0 0 0 32px;
     color: #D76200;
     margin:0;
-    width: 600px;
+    font-family: Roboto;
+    font-size: 20px;
+    line-height: 28px;
 }
 .gm-style .gm-style-iw p {
   margin: 0;
@@ -162,36 +87,93 @@ html, body, #map-canvas {
   height: 500px;
   overflow-y: scroll;    
 }
+.ui-autocomplete > li {
+    font-family: Roboto;
+    font-size: 13px;
+}
 .btright{
   font-size: 16px;
 }
-.type-selector-details{
-    margin: 12px 0;
+
+.mdl-layout__drawer-right {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    width: 340px;
+    height: 100%;
+    max-height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    box-sizing: border-box;
+    border-right: 1px solid #e0e0e0;
+    background: #fafafa;
+    -webkit-transform: translateX(350px);
+    -ms-transform: translateX(350px);
+    transform: translateX(350px);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    will-change: transform;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s;
+    -webkit-transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    -webkit-transition-property: -webkit-transform;
+    transition-property: transform;
+    color: #424242;
+    overflow: visible;
+    overflow-y: auto;
+    z-index: 5;
+}
+
+.active {
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+}
+
+.mdl-layout__obfuscator-right {
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 4;
+    visibility: hidden;
+    -webkit-transition-property: background-color;
+    transition-property: background-color;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s;
+    -webkit-transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+
+.mdl-layout__drawer-right.active~.mdl-layout__obfuscator-right {
+    background-color: rgba(0,0,0,.5);
+    visibility: visible;
+}
+
+.mdl-layout__drawer-right>.mdl-layout-title {
+    line-height: 56px;
+    padding-left: 16px;
+}
+
+#directions-panel {
+    margin: 0 4px;
 }
 
 @media only screen and (max-device-width: 960px) {
-   #type-selector {
-       display:none;
-   }
-    
-   #branding {
-       width: 70%;
-       margin-top:0; 
-       margin-left:0;
-   }    
-    
-   #field-search {
-       position: absolute;
-       left:0 !important;
-       top: 32px !important;
-       margin-top: 0 !important;
-       width: 99% !important;
-   }   
-    
-   #field-search:focus{
-       width: 99% !important;
-   }
-    
    .ui-autocomplete {    
      height: 40%;  
    }
@@ -199,16 +181,10 @@ html, body, #map-canvas {
    .gm-style-iw h2 {
        margin: 0;
        font-size: 18px;
-       with: 98%;
    }  
     
    #place-search {
        margin: 2px 0;
        width: 77%;
-   }  
-    
-   #directions-panel-wrapper {
-       margin-top: 39px;
-       width: 360px;
-   }    
+   }
 }
